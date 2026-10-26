@@ -30,29 +30,9 @@ jobs:
         uses: actions/checkout@v2.3.4
       - name: Fetch OpenIPC release
         run: |
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516cv100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518cv100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518ev100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516cv200-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516dv100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518ev200-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516cv300-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516ev100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516ev300-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3518ev300-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3516ev200-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3536cv100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.hi3536dv100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7201v200-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7205v200-nor-lite.tgz
-          # wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7205v200-nor-fpv.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7205v300-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7605v100-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.gk7205v500-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.xm530-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.xm510-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.nt98562-nor-lite.tgz
-          wget -q https://github.com/OpenIPC/firmware/releases/download/latest/openipc.nt98566-nor-lite.tgz
+          for soc in hi3516cv200 hi3516cv300 hi3516ev100 hi3516ev200 hi3516ev300 hi3518ev200 hi3518ev300 gk7201v200 gk7205v200 gk7205v300 gk7605v100 gk7205v500 xm530 xm510; do
+            wget -q "https://github.com{soc}-nor-lite.tgz" || echo "Skip missing $soc"
+          done
       - name: Create firmwares
         run: |
             export RUN="$GITHUB_WORKSPACE/.github/workflows/_xm2oipc.sh"
