@@ -31,8 +31,7 @@ jobs:
       - name: Fetch OpenIPC release
         run: |
           for soc in hi3516cv200 hi3516cv300 hi3516ev100 hi3516ev200 hi3516ev300 hi3518ev200 hi3518ev300 gk7201v200 gk7205v200 gk7205v300 gk7605v100 gk7205v500 xm530 xm510; do
-            wget -q "https://github.com${soc}-nor-lite.tgz" || \
-            wget -q "https://openipc.org${soc}-nor-lite.tgz" || \
+            wget -q "https://github.com/OpenIPC/firmware/releases/download/nightly/openipc.${soc}-nor-lite.tgz" 
             echo "Skip missing $soc"
           done
 
